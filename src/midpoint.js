@@ -54,32 +54,32 @@ function Painter(context, width, height) {
         var dy = y1 - y0;
         var radius = Math.round(Math.sqrt(dx * dx + dy * dy));
 
-        var x = 0;
-        var y = radius;
-        var p = 1 - radius;
+        var xi = 0;
+        var yi = radius;
+        var fi = 1 - radius;
 
-        while (x <= y) {
-            if (p < 0) {
+        while (xi <= yi) {
+            if (fi < 0) {
                 // Next point is on the x-axis
-                x++;
-                p += 2 * x + 3;
+                xi++;
+                fi = fi + 2 * xi + 3;
             }
             else {
                 // Next point is on the diagonal
-                x++;
-                y--;
-                p += 2 * (x - y) + 5;
+                xi++;
+                yi--;
+                fi = fi + 2 * xi - 2 * yi + 5;
             }
             
             // Plot the eight symmetrical points
-            this.drawPoint([x0 + x, y0 + y], rgba);
-            this.drawPoint([x0 - x, y0 + y], rgba);
-            this.drawPoint([x0 + x, y0 - y], rgba);
-            this.drawPoint([x0 - x, y0 - y], rgba);
-            this.drawPoint([x0 + y, y0 + x], rgba);
-            this.drawPoint([x0 - y, y0 + x], rgba);
-            this.drawPoint([x0 + y, y0 - x], rgba);
-            this.drawPoint([x0 - y, y0 - x], rgba);
+            this.drawPoint([x0 + xi, y0 + yi], rgba);
+            this.drawPoint([x0 - xi, y0 + yi], rgba);
+            this.drawPoint([x0 + xi, y0 - yi], rgba);
+            this.drawPoint([x0 - xi, y0 - yi], rgba);
+            this.drawPoint([x0 + yi, y0 + xi], rgba);
+            this.drawPoint([x0 - yi, y0 + xi], rgba);
+            this.drawPoint([x0 + yi, y0 - xi], rgba);
+            this.drawPoint([x0 - yi, y0 - xi], rgba);
         }
 
     }
