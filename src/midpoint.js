@@ -8,7 +8,7 @@ var height = 600;
 
 var bgRgba = [240, 240, 200, 255];
 var pointRgba = [0, 0, 255, 255];
-var lineRgba = [0, 217,227,248];
+var lineRgba = [0, 217, 227, 248];
 var vlineRgba = [255, 0, 0, 255];
 
 var isDone = true;
@@ -52,36 +52,36 @@ function Painter(context, width, height) {
         var x1 = p1[0], y1 = p1[1];
         var dx = x1 - x0;
         var dy = y1 - y0;
-        var radius = Math.sqrt(dx * dx + dy * dy);
+        var radius = Math.round(Math.sqrt(dx * dx + dy * dy));
 
         var x = 0;
         var y = radius;
-        var p 
-        this.drawPoint([x0 + x, y0], rgba); // top right
-        // while (x >= y) {
-        //     this.drawPoint([x0 + x, y0 - y], rgba); // top right
-        //     this.drawPoint([x0 - x, y0 - y], rgba); // top left
-        //     this.drawPoint([x0 + x, y0 + y], rgba); // bottom right
-        //     this.drawPoint([x0 - x, y0 + y], rgba); // bottom left
-        //     this.drawPoint([x0 + y, y0 - x], rgba); // right top
-        //     this.drawPoint([x0 - y, y0 - x], rgba); // left top
-        //     this.drawPoint([x0 + y, y0 + x], rgba); // right bottom
-        //     this.drawPoint([x0 - y, y0 + x], rgba); // left bottom
-        
+        var p = 1 - radius;
 
-        //     if (err <= 0) {
-        //         y += 1;
-        //         err += 2*y + 1;
-        //     }
-        //     if (err > 0) {
-        //         x -= 1;
-        //         err -= 2*x + 1;
-        //     }
-        // }
+        while (x <= y) {
+            if (p < 0) {
+                // Next point is on the x-axis
+                x++;
+                p += 2 * x + 3;
+            }
+            else {
+                // Next point is on the diagonal
+                x++;
+                y--;
+                p += 2 * (x - y) + 5;
+            }
+            
+            // Plot the eight symmetrical points
+            this.drawPoint([x0 + x, y0 + y], rgba);
+            this.drawPoint([x0 - x, y0 + y], rgba);
+            this.drawPoint([x0 + x, y0 - y], rgba);
+            this.drawPoint([x0 - x, y0 - y], rgba);
+            this.drawPoint([x0 + y, y0 + x], rgba);
+            this.drawPoint([x0 - y, y0 + x], rgba);
+            this.drawPoint([x0 + y, y0 - x], rgba);
+            this.drawPoint([x0 - y, y0 - x], rgba);
+        }
 
-        // if (isDone == true && rgba == lineRgba) {
-        //     state = 0;
-        // }
     }
 
     this.clearBackground = function (rgba) {
@@ -126,11 +126,11 @@ getPosOnCanvas = function (x, y) {
 }
 
 doMouseMove = function (e) {
-    // if (state == 0 || state == 2) {
-    //     return;
-    // }
-    // var p = getPosOnCanvas(e.clientX, e.clientY);
-    // painter.draw(p);
+    if (state == 0 || state == 2) {
+        return;
+    }
+    var p = getPosOnCanvas(e.clientX, e.clientY);
+    painter.draw(p);
 }
 
 doMouseDown = function (e) {
@@ -170,10 +170,3 @@ canvas.addEventListener("mousemove", doMouseMove, false);
 window.addEventListener("keydown", doKeyDown, false);
 document.getElementById("reset").addEventListener("click", doReset, false);
 
-
-var p = [100, 100];
-    var p2 = [150, 100];
-    painter.addPoint(p);
-    painter.addPoint(p2);
-    painter.draw(p);
-    painter.draw(p2);
