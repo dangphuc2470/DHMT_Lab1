@@ -54,7 +54,6 @@ function Painter(context, width, height) {
 
     
     this.drawLine = function(p0, p1, rgba) {
-        console.log("drawLine dda");
         var x0 = p0[0], y0 = p0[1];
         var x1 = p1[0], y1 = p1[1];
         var dx = x1 - x0, dy = y1 - y0;

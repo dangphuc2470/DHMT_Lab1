@@ -36,15 +36,19 @@
         Reset
       </button>
     </div>
-    <script src="src/dda.js"></script>
-    <script>
-      document.getElementById("apply").addEventListener("click", function () {
-        var algorithm = document.getElementById("algorithm").value;
-        var scriptElement = document.createElement("script");
-        scriptElement.src = "src/" + algorithm + ".js";
-        document.body.appendChild(scriptElement);
-      });
-    </script>
+    <div id="webgl">
+      <script src="lib/three.module.js"></script>
+      <script src="src/main.js"></script>
+      <!-- <script>
+        document.getElementById("apply").addEventListener("click", function () {
+          var algorithm = document.getElementById("algorithm").value;
+          var scriptElement = document.createElement("script");
+          scriptElement.src = "src/" + algorithm + ".js";
+          document.body.appendChild(scriptElement);
+        });
+      </script> -->
+    </div>
+    
 
   </div>
 </body>
